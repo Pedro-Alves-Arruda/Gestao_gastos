@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: auto;
+            margin-top: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .form-control {
+            font-size: 14px;
+            padding: 5px;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 2px;
+            min-height: 40px;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border-color: #66b3ff !important;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-left: 5px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #ffdddd;
+        }
+    </style>
+</head>
+<body class="d-block justify-content-center align-items-center vh-50">
+    <div th:replace="~{TelaMenu :: body}"></div>
+    <div class="login-container bg-light p-4 rounded shadow text-center" style="width: 60%;">
+            <h2>Cadastro de Usuário</h2>
+            <hr>
+
+            <form th:action="@{/user/saveUser}" th:object="${usuario}"  method="post">
+
+                <div class="input-group mb-1">
+                    <input type="text" th:field="*{usuario}" class="form-control" placeholder="Usuario" aria-label="Usuario" aria-describedby="basic-addon1" required>
+                </div>
+
+                <div class="input-group mb-1">
+                    <input type="text" th:field="*{nome}" class="form-control" placeholder="Nome" aria-label="Nome" aria-describedby="basic-addon1" required>
+                </div>
+
+                <div class="input-group mb-1">
+                    <input type="text" th:field="*{email}" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" required>
+                </div>
+
+                <div class="input-group mb-1">
+                    <input type="password" th:field="*{password}" class="form-control" placeholder="Senha" aria-label="Senha" aria-describedby="basic-addon1" required>
+                </div>
+
+                <select id="multi-selects" name="roles" class="form-control" aria-label="Selecione as permissões"  multiple>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="GERENTE">GERENTE</option>
+                    <option value="FUNCIONARIO">FUNCIONARIO</option>
+                </select>
+
+                <button style="margin-top:1rem;" type="submit" class="btn btn-outline-dark">Salvar</button>
+            </form>
+        </div>
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#multi-selects").select2({
+            tags: true,
+            placeholder: "Selecione as permissões",
+            allowClear: true
+        }).next().addClass('form-control');
+    });
+</script>
+
+</html>
